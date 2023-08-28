@@ -6,9 +6,12 @@ class Library {
   }
 
   addBook(book) {
-    if (book instanceof Book) {
-      this.books.push(book);
-    } else {
+    this.validateBookInstance(book);
+    this.books.push(book);
+  }
+
+  validateBookInstance(book) {
+    if (!(book instanceof Book)) {
       throw new Error(
         "Only instances of the Book class can be added to the library."
       );
@@ -16,35 +19,33 @@ class Library {
   }
 
   searchByTitle(title) {
-    if (typeof title !== "string") {
-      throw new Error("Invalid input type for search.");
-    }
-
+    this.validateSearchInput(title);
     const results = this.books.filter((book) =>
       book.title.toLowerCase().includes(title.toLowerCase())
     );
-
-    if (results.length === 0) {
-      console.log("No books found for the given title.");
-    }
-
+    this.logSearchResults(results);
     return results;
   }
 
   searchByAuthor(author) {
-    if (typeof author !== "string") {
-      throw new Error("Invalid input type for search.");
-    }
-
+    this.validateSearchInput(author);
     const results = this.books.filter((book) =>
       book.author.toLowerCase().includes(author.toLowerCase())
     );
-
-    if (results.length === 0) {
-      console.log("No books found for the given author.");
-    }
-
+    this.logSearchResults(results);
     return results;
+  }
+
+  validateSearchInput(input) {
+    if (typeof input !== "string") {
+      throw new Error("Invalid input type for search.");
+    }
+  }
+
+  logSearchResults(results) {
+    if (results.length === 0) {
+      console.log("No books found.");
+    }
   }
 
   getTotalBooks() {
