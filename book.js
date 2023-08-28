@@ -1,5 +1,19 @@
 class Book {
   constructor(title, author, publicationYear) {
+    this.validateBookDetails(title, author, publicationYear);
+    this.title = title;
+    this.author = author;
+    this.publicationYear = publicationYear;
+  }
+
+  updateDetails(newTitle, newAuthor, newPublicationYear) {
+    this.validateBookDetails(newTitle, newAuthor, newPublicationYear);
+    this.title = newTitle;
+    this.author = newAuthor;
+    this.publicationYear = newPublicationYear;
+  }
+
+  validateBookDetails(title, author, publicationYear) {
     if (
       typeof title !== "string" ||
       typeof author !== "string" ||
@@ -9,24 +23,6 @@ class Book {
     ) {
       throw new Error("Invalid input for book details.");
     }
-    this.title = title;
-    this.author = author;
-    this.publicationYear = publicationYear;
-  }
-
-  updateDetails(newTitle, newAuthor, newPublicationYear) {
-    if (
-      typeof newTitle !== "string" ||
-      typeof newAuthor !== "string" ||
-      typeof newPublicationYear !== "number" ||
-      newPublicationYear < 0 ||
-      newPublicationYear > new Date().getFullYear()
-    ) {
-      throw new Error("Invalid input for book details.");
-    }
-    this.title = newTitle;
-    this.author = newAuthor;
-    this.publicationYear = newPublicationYear;
   }
 }
 
